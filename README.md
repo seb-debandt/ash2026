@@ -10,7 +10,10 @@ Live site: https://seb-debandt.github.io/ash2026/
 
 ## What the site contains
 
-- **Key abstracts:** 13 editorial picks, each with a one-line reason.
+- **Three tabs:**
+  - **Highlights:** 13 editorial picks, each with a one-line reason.
+  - **Schedule:** sessions by day and time, with room and talk order.
+  - **All abstracts:** grouped by topic. Each abstract opens in a reading panel.
 - **Six topic groups:** frontline treatment; relapsed or refractory treatment; CAR-T and stem cell transplant; biology, biomarkers and prognosis; real-world outcomes and access; and safety, supportive care and quality of life.
 - **Relevance labels:**
   - **MCL focus:** MCL is in the title (73 abstracts).
@@ -26,6 +29,7 @@ Source: https://onlineprogram.hematology.org/
 2. Download each `paper-details.aspx?pid=N` page, then run `scraper/parse.py` to extract the fields and classify how often MCL is mentioned. Matches on the MCL-1 gene, on "mast cell leukemia" and on session titles alone are excluded.
 3. `build/build_data.py` cleans the authors, affiliations and abstract HTML.
 4. `build/enrich.py` adds the topic and key-abstract notes.
-5. `node build/encrypt.js <data.json> build/template.html index.html <password>` writes the encrypted page.
+5. `scraper/sessions.py` reads the downloaded session pages and collects day, time, room and talk order.
+6. Combine the results into `{"abstracts": [...], "sessions": {...}}`, then run `node build/encrypt.js <payload.json> build/template.html index.html <password>` to write the encrypted page.
 
 The scripts expect a local `dl/` working folder for downloaded pages and intermediate JSON. That folder is git-ignored.
