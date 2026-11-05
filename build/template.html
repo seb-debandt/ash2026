@@ -1,0 +1,277 @@
+<meta charset="utf-8">
+<title>MCL at ASH 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a briefing book. Narrow reading column, sticky filter bar, abstracts grouped by clinical topic, key abstracts up front. */
+:root{
+  --bg:#f5f6f3; --surface:#ffffff; --ink:#18222b; --muted:#5b6670; --line:#dde1dc;
+  --accent:#2f5d50; --accent-soft:#e3ece7; --key:#7a5a00; --key-soft:#fbf3dc;
+  --t1:#2f5d50; --t2:#4a5f86; --t3:#7b8388;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121719; --surface:#1a2124; --ink:#e7ebe8; --muted:#9aa5a9; --line:#2c3639;
+  --accent:#8cc2ad; --accent-soft:#1f2f2a; --key:#e6c46a; --key-soft:#2c2614;
+  --t1:#8cc2ad; --t2:#a3b5dc; --t3:#9aa1a5; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121719; --surface:#1a2124; --ink:#e7ebe8; --muted:#9aa5a9; --line:#2c3639;
+  --accent:#8cc2ad; --accent-soft:#1f2f2a; --key:#e6c46a; --key-soft:#2c2614;
+  --t1:#8cc2ad; --t2:#a3b5dc; --t3:#9aa1a5; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,5vw,40px);line-height:1.1;margin:8px 0 12px;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0;text-wrap:balance}
+/* gate */
+.gate{min-height:80vh;display:grid;place-items:center;padding-block:40px}
+.gate-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:28px}
+.gate-card p{color:var(--muted);margin:0 0 20px}
+.gate form{display:grid;gap:10px}
+label.lbl{font-size:13px;font-weight:600}
+input[type=password],input[type=search]{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+button.primary{font:inherit;font-weight:600;padding:10px 14px;border-radius:6px;border:0;background:var(--accent);color:var(--surface);cursor:pointer}
+.err{color:#b3261e;font-size:13px;min-height:1.2em}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .err{color:#f2a49c}}
+:root[data-theme="dark"] .err{color:#f2a49c}
+/* header */
+header.top{padding-block:40px 20px;border-bottom:1px solid var(--line)}
+.lede{max-width:62ch;color:var(--muted);margin:0}
+.stats{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:20px;font-size:14px}
+.stats b{font-family:var(--serif);font-size:22px;font-weight:600;display:block;line-height:1.1;color:var(--ink)}
+.stats span{color:var(--muted)}
+/* key */
+section.key{margin-top:32px}
+.key-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.key-note{color:var(--muted);font-size:13px;margin:0 0 14px;max-width:70ch}
+.key-list{display:grid;gap:10px}
+.keycard{background:var(--key-soft);border:1px solid var(--line);border-radius:8px;padding:14px 16px;cursor:pointer;text-align:left;font:inherit;color:inherit;width:100%}
+.keycard:hover{border-color:var(--key)}
+.keycard .why{margin:6px 0 0;font-size:14px}
+.keycard .t{font-family:var(--serif);font-weight:600;font-size:16px;line-height:1.3}
+/* filters */
+.filters{z-index:5;background:var(--bg);padding-block:14px;margin-top:32px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips .lab{font-size:12px;color:var(--muted);margin-right:4px;font-weight:600}
+.chip{font:inherit;font-size:13px;padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.count{font-size:13px;color:var(--muted)}
+/* topic groups */
+.topic{margin-top:36px}
+.topic-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+.topic-head .n{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.topic-desc{color:var(--muted);font-size:13px;margin:6px 0 0}
+.item{border-bottom:1px solid var(--line);padding-block:14px}
+.item>button.row{all:unset;display:grid;grid-template-columns:4.2em 1fr;gap:4px 12px;cursor:pointer;width:100%}
+.item>button.row:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.no{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:2px}
+.ttl{font-family:var(--serif);font-size:17px;font-weight:600;line-height:1.3;min-width:0}
+.meta{grid-column:2;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 12px;min-width:0}
+.badges{grid-column:2;display:flex;flex-wrap:wrap;gap:6px}
+.b{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:4px;border:1px solid currentColor}
+.b.t1{color:var(--t1)} .b.t2{color:var(--t2)} .b.t3{color:var(--t3)}
+.b.key{color:var(--key);background:var(--key-soft)}
+.b.oral{color:var(--ink)}
+.detail{margin:14px 0 4px calc(4.2em + 12px);min-width:0}
+.detail .why{background:var(--key-soft);border-radius:6px;padding:10px 12px;font-size:14px;margin-bottom:14px}
+.detail h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px}
+.abs{font-size:15px;max-width:68ch}
+.abs p{margin:0 0 10px}
+.abs table{border-collapse:collapse;font-size:13px}
+.abs td,.abs th{border:1px solid var(--line);padding:4px 6px}
+.tablewrap{overflow-x:auto}
+.small{font-size:13px;color:var(--muted)}
+details summary{cursor:pointer;font-size:13px;color:var(--muted);margin-top:12px}
+.actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:14px}
+.empty{padding:40px 0;color:var(--muted)}
+footer{margin-top:48px;font-size:12px;color:var(--muted);max-width:70ch}
+@media (min-width:760px){.filters{position:sticky;top:env(safe-area-inset-top,0px)}.item{scroll-margin-top:240px}}
+@media (max-width:520px){.detail{margin-left:0}.item>button.row{grid-template-columns:3.4em 1fr}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <div id="gate" class="gate">
+    <div class="gate-card">
+      <div class="eyebrow">MCLA Board · Private</div>
+      <h1 style="font-size:28px">Mantle cell lymphoma at ASH 2026</h1>
+      <p>Enter the board password to open the abstract briefing.</p>
+      <form id="gateForm" autocomplete="off">
+        <label class="lbl" for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="current-password" required>
+        <div class="err" id="err" role="alert"></div>
+        <button class="primary" type="submit" id="unlock">Open briefing</button>
+      </form>
+    </div>
+  </div>
+  <div id="app" hidden></div>
+</div>
+
+<script>
+const PAYLOAD = __PAYLOAD__;
+const TOPICS = [
+  ["FT","Frontline treatment","First treatment after diagnosis, including chemotherapy-free regimens."],
+  ["RR","Relapsed or refractory treatment","BTK inhibitors, bispecific antibodies, antibody-drug conjugates and other drugs after earlier treatment."],
+  ["CT","CAR-T and stem cell transplant","Cell therapies and transplant, including multi-lymphoma studies with MCL patients."],
+  ["BIO","Biology, biomarkers and prognosis","Genetics, MRD testing, PET imaging, risk scores and lab research."],
+  ["RW","Real-world outcomes and access","Registry and population studies, treatment patterns, survival trends and access to care."],
+  ["SAFE","Safety, supportive care and quality of life","Side effects, infections, heart risks, bleeding and patient-reported outcomes."]
+];
+const TIERS = {1:["MCL focus","t1"],2:["Includes MCL data","t2"],3:["Mentions MCL","t3"]};
+const DAYS = ["Saturday, December 12, 2026","Sunday, December 13, 2026","Monday, December 14, 2026"];
+const state = {q:"", tiers:new Set([1,2,3]), type:"all", day:"all", open:new Set()};
+let DATA = [];
+
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function decrypt(pw){
+  const enc = new TextEncoder();
+  const base = await crypto.subtle.importKey("raw", enc.encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({name:"PBKDF2", salt:b64(PAYLOAD.salt), iterations:PAYLOAD.iter, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["decrypt"]);
+  const buf = await crypto.subtle.decrypt({name:"AES-GCM", iv:b64(PAYLOAD.iv)}, key, b64(PAYLOAD.ct));
+  return JSON.parse(new TextDecoder().decode(buf));
+}
+document.getElementById("gateForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const btn = document.getElementById("unlock"), err = document.getElementById("err");
+  btn.disabled = true; btn.textContent = "Opening..."; err.textContent = "";
+  try {
+    DATA = await decrypt(document.getElementById("pw").value);
+    document.getElementById("gate").hidden = true;
+    document.getElementById("app").hidden = false;
+    renderShell(); render();
+  } catch(x) {
+    err.textContent = "That password didn't work. Check it and try again.";
+    btn.disabled = false; btn.textContent = "Open briefing";
+  }
+});
+
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shortDay = d => d.replace(/, 2026$/,"").replace("December","Dec");
+const typeLabel = t => /Oral|Marquee/.test(t) ? (/Marquee/.test(t) ? "Plenary" : "Oral") : "Poster";
+const authorsShort = a => !a.length ? "" : a[0].split(",")[0] + (a.length>1 ? " et al." : "");
+
+function renderShell(){
+  const t1 = DATA.filter(x=>x.tier===1).length, t2 = DATA.filter(x=>x.tier===2).length, t3 = DATA.filter(x=>x.tier===3).length;
+  const orals = DATA.filter(x=>typeLabel(x.type)!=="Poster").length;
+  const keys = DATA.filter(x=>x.key).sort((a,b)=>KEYORDER.indexOf(a.no)-KEYORDER.indexOf(b.no));
+  document.getElementById("app").innerHTML = `
+  <header class="top">
+    <div class="eyebrow">MCLA Board Briefing · ASH Annual Meeting · New Orleans · Dec 12–15, 2026</div>
+    <h1>Mantle cell lymphoma at ASH 2026</h1>
+    <p class="lede">Every abstract in the 2026 ASH program that reports on or mentions mantle cell lymphoma (MCL), grouped by topic. Open any abstract to read the full text, authors and disclosures, or follow the link to the ASH program.</p>
+    <div class="stats">
+      <div><b>${DATA.length}</b><span>abstracts</span></div>
+      <div><b>${t1}</b><span>MCL focus</span></div>
+      <div><b>${t2}</b><span>include MCL data</span></div>
+      <div><b>${t3}</b><span>mention MCL</span></div>
+      <div><b>${orals}</b><span>oral or plenary</span></div>
+    </div>
+  </header>
+  <section class="key" aria-labelledby="keyh">
+    <div class="key-head"><h2 id="keyh">Key abstracts</h2><span class="count">${keys.length} selected</span></div>
+    <p class="key-note">Selected for likely impact on patient care: randomized trials, first reports of new frontline regimens, long-term follow-up of approved therapies, and results in patients with few options. This is an editorial selection, not an ASH designation.</p>
+    <div class="key-list">${keys.map(x=>`
+      <button class="keycard" type="button" data-jump="${x.pid}">
+        <div class="eyebrow">#${esc(x.no)} · ${typeLabel(x.type)} · ${esc(shortDay(x.day))}</div>
+        <div class="t">${esc(x.title)}</div>
+        <p class="why">${esc(x.key)}</p>
+      </button>`).join("")}</div>
+  </section>
+  <div class="filters" role="search">
+    <input id="q" type="search" placeholder="Search titles, authors, drugs, institutions" aria-label="Search abstracts">
+    <div class="chips" id="tierChips"><span class="lab">Relevance</span>${[1,2,3].map(t=>`<button class="chip" type="button" data-tier="${t}" aria-pressed="true">${TIERS[t][0]}</button>`).join("")}</div>
+    <div class="chips" id="typeChips"><span class="lab">Format</span>${[["all","All"],["oral","Oral and plenary"],["poster","Posters"]].map(([v,l])=>`<button class="chip" type="button" data-type="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("")}</div>
+    <div class="chips" id="dayChips"><span class="lab">Day</span>${[["all","All days"],...DAYS.map(d=>[d,shortDay(d)])].map(([v,l])=>`<button class="chip" type="button" data-day="${esc(v)}" aria-pressed="${v==="all"}">${esc(l)}</button>`).join("")}</div>
+    <div class="count" id="count" aria-live="polite"></div>
+  </div>
+  <div id="list"></div>
+  <footer>Source: ASH 2026 Annual Meeting online program (onlineprogram.hematology.org), retrieved November 5, 2026. Abstract text is reproduced as published by ASH; check the ASH program for final times and rooms. Relevance labels: "MCL focus" means MCL is in the title; "Includes MCL data" means the abstract reports MCL patients or results within a broader study; "Mentions MCL" means MCL appears briefly, for example in eligibility criteria. Prepared for the Mantle Cell Lymphoma Alliance Board.</footer>`;
+  const app = document.getElementById("app");
+  app.querySelector("#q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
+  app.querySelectorAll("[data-tier]").forEach(b => b.addEventListener("click", () => {
+    const t = +b.dataset.tier; state.tiers.has(t) ? state.tiers.delete(t) : state.tiers.add(t);
+    b.setAttribute("aria-pressed", state.tiers.has(t)); render(); }));
+  app.querySelectorAll("[data-type]").forEach(b => b.addEventListener("click", () => {
+    state.type = b.dataset.type; app.querySelectorAll("[data-type]").forEach(x=>x.setAttribute("aria-pressed", x===b)); render(); }));
+  app.querySelectorAll("[data-day]").forEach(b => b.addEventListener("click", () => {
+    state.day = b.dataset.day; app.querySelectorAll("[data-day]").forEach(x=>x.setAttribute("aria-pressed", x===b)); render(); }));
+  app.querySelectorAll("[data-jump]").forEach(b => b.addEventListener("click", () => jump(b.dataset.jump)));
+  document.getElementById("list").addEventListener("click", e => {
+    const r = e.target.closest("button.row"); if (!r) return;
+    const id = r.dataset.pid; state.open.has(id) ? state.open.delete(id) : state.open.add(id); render(id);
+  });
+}
+const KEYORDER = ["6","1791","1015","1016","1018","1017","1019","235","236","1784","237","238","1032"];
+
+function jump(pid){
+  // reset filters so the target is visible
+  state.q=""; state.tiers=new Set([1,2,3]); state.type="all"; state.day="all";
+  const app=document.getElementById("app"); app.querySelector("#q").value="";
+  app.querySelectorAll("[data-tier]").forEach(x=>x.setAttribute("aria-pressed","true"));
+  app.querySelectorAll("[data-type]").forEach(x=>x.setAttribute("aria-pressed", x.dataset.type==="all"));
+  app.querySelectorAll("[data-day]").forEach(x=>x.setAttribute("aria-pressed", x.dataset.day==="all"));
+  state.open.add(pid); render();
+  const el = document.getElementById("p"+pid);
+  if (el){ el.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"start"}); el.querySelector("button.row").focus({preventScroll:true}); }
+}
+
+function matches(x){
+  if (!state.tiers.has(x.tier)) return false;
+  const tl = typeLabel(x.type);
+  if (state.type==="oral" && tl==="Poster") return false;
+  if (state.type==="poster" && tl!=="Poster") return false;
+  if (state.day!=="all" && x.day!==state.day) return false;
+  if (state.q){
+    if (!x._s) x._s = [x.no,x.title,x.authors.join(" "),x.affils.join(" "),x.abstract.replace(/<[^>]+>/g," "),x.session].join(" ").toLowerCase();
+    return state.q.split(/\s+/).every(w => x._s.includes(w));
+  }
+  return true;
+}
+
+function itemHTML(x){
+  const open = state.open.has(x.pid), tl = typeLabel(x.type);
+  return `<article class="item" id="p${x.pid}">
+    <button class="row" type="button" data-pid="${x.pid}" aria-expanded="${open}">
+      <span class="no">#${esc(x.no)}</span>
+      <span class="ttl">${esc(x.title)}</span>
+      <span class="meta"><span>${esc(authorsShort(x.authors))}</span><span>${esc(shortDay(x.day))} · ${esc(x.time.replace(/ - /," – "))}</span><span>${esc(x.room)}</span></span>
+      <span class="badges">${x.key?'<span class="b key">Key</span>':''}<span class="b ${TIERS[x.tier][1]}">${TIERS[x.tier][0]}</span><span class="b oral">${tl}</span></span>
+    </button>
+    ${open ? `<div class="detail">
+      ${x.key?`<div class="why"><strong>Why it matters:</strong> ${esc(x.key)}</div>`:""}
+      <div class="small">${esc(x.session)}</div>
+      <h4>Abstract</h4>
+      <div class="abs tablewrap">${x.abstract}</div>
+      <h4>Authors</h4>
+      <div class="small">${esc(x.authors.join("; "))}</div>
+      <details><summary>Affiliations (${x.affils.length})</summary><ol class="small">${x.affils.map(a=>`<li>${esc(a)}</li>`).join("")}</ol></details>
+      ${x.disclosures?`<details><summary>Disclosures</summary><p class="small">${esc(x.disclosures)}</p></details>`:""}
+      <div class="actions"><a href="${esc(x.url)}" target="_blank" rel="noopener">View on the ASH program</a></div>
+    </div>`:""}
+  </article>`;
+}
+
+function render(focusPid){
+  const list = DATA.filter(matches);
+  document.getElementById("count").textContent = `Showing ${list.length} of ${DATA.length} abstracts`;
+  const sort = (a,b) => (a.tier-b.tier) || ((b.key?1:0)-(a.key?1:0)) || (typeLabel(a.type)==="Poster") - (typeLabel(b.type)==="Poster") || (+a.no - +b.no);
+  let html = "";
+  for (const [code,name,desc] of TOPICS){
+    const g = list.filter(x=>x.topic===code).sort(sort);
+    if (!g.length) continue;
+    const f = g.filter(x=>x.tier===1).length;
+    html += `<section class="topic" aria-labelledby="h${code}"><div class="topic-head"><h2 id="h${code}">${name}</h2><span class="n">${g.length} abstracts · ${f} MCL focus</span></div><p class="topic-desc">${desc}</p>${g.map(itemHTML).join("")}</section>`;
+  }
+  document.getElementById("list").innerHTML = html || `<p class="empty">No abstracts match these filters. Clear the search or turn a filter back on.</p>`;
+  if (focusPid){ const r=document.querySelector(`#p${focusPid} button.row`); r && r.focus({preventScroll:true}); }
+}
+</script>

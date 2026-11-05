@@ -1,0 +1,4 @@
+# Plain-text abstract data stays out of the repo; only the encrypted page is published.
+data/
+*.json
+.pw
